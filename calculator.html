@@ -67,6 +67,7 @@
         });
 
         $('.add').click(function(){
+            dotcheck = true;
             num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
@@ -79,6 +80,7 @@
         });
 
         $('.sub').click(function(){
+            dotcheck = true;
             num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
@@ -91,6 +93,7 @@
         });
 
         $('.div').click(function(){
+            dotcheck = true;
             num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
@@ -103,6 +106,7 @@
         });
 
         $('.mul').click(function(){
+            dotcheck = true;
             num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
@@ -120,6 +124,7 @@
                 alert("Voer eerst het tweede getal in!");
             }
             else{
+                dotcheck = true;
                 switch(status){
                     case "plus": result = +num1 + +num2;
                     //    alert(result);
