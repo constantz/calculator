@@ -20,20 +20,20 @@
     <button class="btn">1</button>
     <button class="btn">2</button>
     <button class="btn">3</button>
-    <button class="add">+</button></br><br/>
+    <button class="add op">+</button></br><br/>
     <button class="btn">4</button>
     <button class="btn">5</button>
     <button class="btn">6</button>
-    <button class="sub">-</button></br><br/>
+    <button class="sub op">-</button></br><br/>
     <button class="btn">7</button>
     <button class="btn">8</button>
     <button class="btn">9</button>
-    <button class="div">/</button></br></br>
+    <button class="div op">/</button></br></br>
     <button class="btn">0</button>
     <button class="dot">.</button>
-    <button class="mul">*</button>
+    <button class="mul op">*</button>
 
-    <button id="calc">=</button><button class="res">C</button></br>
+    <button id="calc" class="op">=</button><button class="res">C</button></br>
 
     <p id="numberone"></p>
     <p id="numbertwo"></p>
@@ -42,20 +42,31 @@
     <script>
         var num1 = null;
         var num1 = null;
+        var num3 = null;
         var status = null;
         var result = null;
         var dotcheck = true;
         $('#input').val("");
         var resultstring = "";
+        var firstOp = true;  //first operator called
+        var endedWithCalc = false;
 
         $('.res').click(function(){
+            reset();
+        });
+        
+        function reset(){
             $('#input').val("");
             num1 = null;
             num2 = null;
+            num3 = null;
             $('#numberone').text("");
             dotcheck = true;
             resultstring = "";
-        });
+            result = null;
+            firstOp = true;
+            endedWithCalc = false;
+        };
         
         $('.dot').click(function(){
             if (dotcheck){
@@ -65,93 +76,126 @@
         });
 
         $('.btn').click(function(){
+            if (endedWithCalc){reset()};
             $('#input').val($('input').val() + this.innerHTML);
         });
 
         $('.add').click(function(){
             dotcheck = true;
-            num1 = $('#input').val();
+            if (firstOp){
+                num1 = $('#input').val();
+            }    
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{
-                resultstring = resultstring + num1 + " + ";
-                $('#numberone').text(resultstring);
-                $('#input').val("");
-                status = "plus";
+            else { if (firstOp){
+                    resultstring = resultstring + num1 + " + ";
+                } else {
+                    calculate(); 
+                    resultstring = resultstring + num2 + " + ";               
+                }
+            $('#numberone').text(resultstring);
+            $('#input').val("");
+            status = "plus";
+            firstOp = false;    
             }
         });
 
         $('.sub').click(function(){
             dotcheck = true;
-            num1 = $('#input').val();
+            if (firstOp){
+                num1 = $('#input').val();
+            }    
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{
-                resultstring = resultstring + num1 + " - ";
-                $('#numberone').text(resultstring);
-                $('#input').val("");
-                status = "minus";
-            }
+            else { if (firstOp){
+                    resultstring = resultstring + num1 + " - ";   
+                } else {
+                    calculate();
+                    resultstring = resultstring + num2 + " - ";   
+                } 
+            $('#numberone').text(resultstring);
+            $('#input').val("");
+            status = "minus";   
+            firstOp = false;
+            }    
         });
 
         $('.div').click(function(){
             dotcheck = true;
-            num1 = $('#input').val();
+            if (firstOp){
+                num1 = $('#input').val();
+            }    
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{
-                resultstring = resultstring + num1 + " : ";
-                $('#numberone').text(resultstring);
-                $('#input').val("");
-                status = "deel";
-            }
+            else{ if (firstOp){
+                    resultstring = resultstring + num1 + " : ";    
+                } else {
+                    calculate();
+                    resultstring = resultstring + num2 + " : ";
+                }
+            $('#numberone').text(resultstring);
+            $('#input').val("");
+            status = "deel";
+            firstOp = false;
+            }        
         });
 
         $('.mul').click(function(){
             dotcheck = true;
-            num1 = $('#input').val();
+            if (firstOp){
+                num1 = $('#input').val();
+            }
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{
-                resultstring = resultstring + num1 + " x ";
-                $('#numberone').text(num1 + " x");
-                $('#input').val("");
-                status = "maal";
+            else{ if (firstOp){
+                    resultstring = resultstring + num1 + " x ";
+                } else {
+                    calculate();
+                    resultstring = resultstring + num2 + " x ";
+                }
+            $('#numberone').text(resultstring);
+            $('#input').val("");
+            status = "maal";
+            firstOp = false;    
             }
         });
 
         $('#calc').click(function(){
+            calculate();
+            $('#numberone').text(resultstring + num2 + " = " + result);
+            resultstring = "";
+            endedWithCalc = true;
+        });
+        
+        
+        function calculate(){    
             num2 = $('#input').val();
             if (num2 == ""){
                 alert("Voer eerst het tweede getal in!");
-            }
-            else{
+                }
+            else{ 
                 dotcheck = true;
                 switch(status){
                     case "plus": result = +num1 + +num2;
                         $('#input').val("");
-                        $('#numberone').text(resultstring + num2 + " = " +  result);
                         break;
                     case "minus": result = +num1 - +num2;
                         $('#input').val("");
-                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                     case "deel": result = +num1 / +num2;
                         $('#input').val("");
-                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                     case "maal": result = +num1 * +num2;
                         $('#input').val("");
-                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                 }
-                
+                num1 = result;
             }
-        });
+        };
     </script>
 
 
