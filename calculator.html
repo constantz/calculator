@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>Rekenmachine</h1>
-    <input id="input" type="text" disabled><button class="res">res</button>
+    <input id="input" type="text" disabled>
     </br></br>
 
     <button class="btn">1</button>
@@ -33,7 +33,7 @@
     <button class="dot">.</button>
     <button class="mul">*</button>
 
-    <button id="calc">=</button></br>
+    <button id="calc">=</button><button class="res">C</button></br>
 
     <p id="numberone"></p>
     <p id="numbertwo"></p>
@@ -46,6 +46,7 @@
         var result = null;
         var dotcheck = true;
         $('#input').val("");
+        var resultstring = "";
 
         $('.res').click(function(){
             $('#input').val("");
@@ -53,6 +54,7 @@
             num2 = null;
             $('#numberone').text("");
             dotcheck = true;
+            resultstring = "";
         });
         
         $('.dot').click(function(){
@@ -73,7 +75,8 @@
                 alert("Voer eerst een getal in");
             }
             else{
-                $('#numberone').text(num1 + " +");
+                resultstring = resultstring + num1 + " + ";
+                $('#numberone').text(resultstring);
                 $('#input').val("");
                 status = "plus";
             }
@@ -86,7 +89,8 @@
                 alert("Voer eerst een getal in");
             }
             else{
-                $('#numberone').text(num1 + " -");
+                resultstring = resultstring + num1 + " - ";
+                $('#numberone').text(resultstring);
                 $('#input').val("");
                 status = "minus";
             }
@@ -99,7 +103,8 @@
                 alert("Voer eerst een getal in");
             }
             else{
-                $('#numberone').text(num1 + " :");
+                resultstring = resultstring + num1 + " : ";
+                $('#numberone').text(resultstring);
                 $('#input').val("");
                 status = "deel";
             }
@@ -112,6 +117,7 @@
                 alert("Voer eerst een getal in");
             }
             else{
+                resultstring = resultstring + num1 + " x ";
                 $('#numberone').text(num1 + " x");
                 $('#input').val("");
                 status = "maal";
@@ -127,25 +133,20 @@
                 dotcheck = true;
                 switch(status){
                     case "plus": result = +num1 + +num2;
-                    //    alert(result);
                         $('#input').val("");
-                        $('#numberone').text(num1 + " + " + num2 + " = " +  result);
-                    //    $('#numberone').text("");
+                        $('#numberone').text(resultstring + num2 + " = " +  result);
                         break;
                     case "minus": result = +num1 - +num2;
-                    //    alert(result);
                         $('#input').val("");
-                        $('#numberone').text(num1 + " - " + num2 + " = " + result);
+                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                     case "deel": result = +num1 / +num2;
-                    //    alert(result);
                         $('#input').val("");
-                        $('#numberone').text(num1 + " : " + num2 + " = " + result);
+                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                     case "maal": result = +num1 * +num2;
-                    //    alert(result);
                         $('#input').val("");
-                        $('#numberone').text(num1 + " x " + num2 + " = " + result);
+                        $('#numberone').text(resultstring + num2 + " = " + result);
                         break;
                 }
                 
