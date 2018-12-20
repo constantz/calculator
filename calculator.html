@@ -9,35 +9,50 @@
 
     <meta charset="UTF-8">
     <title>Rekenmachine</title>
-    
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+        .content{
+		    margin-top: 50px;
+        }
+        #input{
+            width: 250px;
+            height: 50px;
+            font-size: 22pt;
+            border-color: gray;
+            border-style: solid;
+            border-radius: 5px;
+        }
+        #numberone{
+            height: 50px;
+            font-size: 22pt;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<div class="container content">
     <h1>Rekenmachine</h1>
     <input id="input" type="text" disabled>
     </br></br>
 
-    <button class="btn knop">1</button>
-    <button class="btn knop">2</button>
-    <button class="btn knop">3</button>
-    <button class="btn add op">+</button></br><br/>
-    <button class="btn knop">4</button>
-    <button class="btn knop">5</button>
-    <button class="btn knop">6</button>
-    <button class="btn sub op">-</button></br><br/>
-    <button class="btn knop">7</button>
-    <button class="btn knop">8</button>
-    <button class="btn knop">9</button>
-    <button class="btn div op">/</button></br></br>
-    <button class="btn knop">0</button>
-    <button class="btn dot">.</button>
-    <button class="btn mul op">*</button>
+    <button class="btn knop btn-outline-primary btn-lg">1</button>
+    <button class="btn knop btn-outline-primary btn-lg">2</button>
+    <button class="btn knop btn-outline-primary btn-lg">3</button>
+    <button class="btn add op btn-outline-secondary btn-lg">+</button></br><br/>
+    <button class="btn knop btn-outline-primary btn-lg">4</button>
+    <button class="btn knop btn-outline-primary btn-lg">5</button>
+    <button class="btn knop btn-outline-primary btn-lg">6</button>
+    <button class="btn sub op btn-outline-secondary btn-lg">-</button></br><br/>
+    <button class="btn knop btn-outline-primary btn-lg">7</button>
+    <button class="btn knop btn-outline-primary btn-lg">8</button>
+    <button class="btn knop btn-outline-primary btn-lg">9</button>
+    <button class="btn div op btn-outline-secondary btn-lg">/</button></br></br>
+    <button class="btn knop btn-outline-primary btn-lg">0</button>
+    <button class="btn dot btn-outline-primary btn-lg">.</button>
+    <button class="btn mul op btn-outline-secondary btn-lg">x</button>
 
-    <button id="calc" class="btn op">=</button>
-    <button class="btn res">C</button></br>
-
+    <button id="calc" class="btn op btn-outline-secondary btn-lg">=</button>
+    <button class="btn res btn-outline-danger btn-lg">C</button></br>
+    <p></p>
     <p id="numberone"></p>
     <p id="numbertwo"></p>
 </div>
