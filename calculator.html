@@ -113,25 +113,14 @@
 
         $('.hookleft').click(function(){
             if (opPressed) $('#input').val("");
-            $('#input').val($('#input').val() + this.innerHTML);
+            $('#input').val($('#input').val() + ' ( ');
             opPressed = false;
         });
 
         $('.hookright').click(function(){
             if (opPressed) $('#input').val("");
-            $('#input').val($('#input').val() + this.innerHTML);
+            $('#input').val($('#input').val() + ' ) ');
             opPressed = false;
-        });
-
-        $('.squared').click(function(){
-            var sq = $('#input').val()*$('#input').val();
-            $('#input').val(sq);
-        });
-
-        $('.sqroot').click(function(){
-            var rr = $('#input').val();
-            var rt = Math.sqrt(rr);
-            $('#input').val(rt);
         });
 
         $('.sto').click(function(){
@@ -149,6 +138,26 @@
             else {
                 $('#input').val("-" + $('#input').val());
             };
+        });
+       
+        $('.squared').click(function(){
+            dotcheck = true;
+            num1 = $('#input').val();
+            if (num1 != ""){
+                var sq = num1*num1;
+                $('#input').val(sq);
+                opPressed = true;
+            }
+        });
+
+        $('.sqroot').click(function(){
+            dotcheck = true;
+            num1 = $('#input').val();
+            if (num1 != ""){
+                var rt = Math.sqrt(num1);
+                $('#input').val(rt);
+                opPressed = true;
+            }
         });
 
         $('.add').click(function(){
