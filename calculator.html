@@ -33,7 +33,13 @@
     <h1>Rekenmachine</h1>
     <input id="input" type="text" disabled>
     </br></br>
-
+    <button type="button" class="btn hookleft btn-outline-primary btn-sm">&nbsp;(&nbsp;</button>
+    <button type="button" class="btn hookright btn-outline-primary btn-sm">&nbsp;)&nbsp;</button>
+    <button type="button" class="btn sqroot btn-outline-secondary btn-sm">&nbsp;&Sqrt;&nbsp;</button>
+    <button type="button" class="btn squared btn-outline-secondary btn-sm">&nbsp;<small>x<sup>2</sup></small>&nbsp;</button>
+    <button type="button" class="btn sto btn-outline-secondary btn-sm">&nbsp;STO&nbsp;</button>
+    <button type="button" class="btn rcl btn-outline-secondary btn-sm">&nbsp;RCL&nbsp;</button>
+    </br></br>
     <button class="btn knop btn-outline-primary btn-lg">1</button>
     <button class="btn knop btn-outline-primary btn-lg">2</button>
     <button class="btn knop btn-outline-primary btn-lg">3</button>
@@ -65,14 +71,15 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
+        var storage = null;
         var num1 = null;
         var result = null;
         var dotcheck = true;
-        $('#input').val("");
         var resultstring = "";  //string voor de uitvoer, ziet er 'leuker' uit
         var rekenstring = "";  //rekenstring gebruiken voor het berekeken, met 'echte' operators (* ipv x bijv.)
-        var endedWithCalc = false;
-
+        var opPressed = "false";    //operator pressed
+        $('#input').val("");
+        
         $('.res').click(function(){
             reset();
         });
@@ -85,7 +92,6 @@
             dotcheck = true;
             resultstring = "";
             rekenstring = "";
-            endedWithCalc = false;
         };
         
         $('.del').click(function(){
@@ -100,8 +106,40 @@
         });
 
         $('.knop').click(function(){
-            if (endedWithCalc){reset()};
+            if (opPressed) $('#input').val("");
             $('#input').val($('#input').val() + this.innerHTML);
+            opPressed = false; 
+        });
+
+        $('.hookleft').click(function(){
+            if (opPressed) $('#input').val("");
+            $('#input').val($('#input').val() + this.innerHTML);
+            opPressed = false;
+        });
+
+        $('.hookright').click(function(){
+            if (opPressed) $('#input').val("");
+            $('#input').val($('#input').val() + this.innerHTML);
+            opPressed = false;
+        });
+
+        $('.squared').click(function(){
+            var sq = $('#input').val()*$('#input').val();
+            $('#input').val(sq);
+        });
+
+        $('.sqroot').click(function(){
+            var rr = $('#input').val();
+            var rt = Math.sqrt(rr);
+            $('#input').val(rt);
+        });
+
+        $('.sto').click(function(){
+            storage = $('#input').val();
+        });
+
+        $('.rcl').click(function(){
+            $('#input').val(storage);
         });
 
         $('.plusmn').click(function(){
@@ -116,61 +154,59 @@
         $('.add').click(function(){
             dotcheck = true;
             num1 = $('#input').val();    
-            if(num1 == ""){
-                alert("Voer eerst een getal in");
-            }
-            resultstring = resultstring + num1 + " + ";
-            rekenstring = rekenstring + num1 + " + ";
-            $('#numberone').text(resultstring);
-            $('#input').val("");
+            if (num1 != "") {
+                resultstring = resultstring + num1 + " + ";
+                rekenstring = rekenstring + num1 + " + ";
+                $('#numberone').text(resultstring); 
+                opPressed = true;
+            }    
         });
 
         $('.sub').click(function(){
             dotcheck = true;
             num1 = $('#input').val();
-            if(num1 == ""){
-                alert("Voer eerst een getal in");
-            }
-            resultstring = resultstring + num1 + " - ";
-            rekenstring = rekenstring + num1 + " - ";
-            $('#numberone').text(resultstring);
-            $('#input').val("");  
+            if (num1 != "") {
+                resultstring = resultstring + num1 + " - ";
+                rekenstring = rekenstring + num1 + " - ";
+                $('#numberone').text(resultstring);
+                opPressed = true;
+            }    
         });
 
         $('.div').click(function(){
             dotcheck = true;
             num1 = $('#input').val();
-            if(num1 == ""){
-                alert("Voer eerst een getal in");
-            }
-            resultstring = resultstring + num1 + " : ";
-            rekenstring = rekenstring + num1 + " / ";
-            $('#numberone').text(resultstring);
-            $('#input').val("");     
+            if (num1 != "") {
+                resultstring = resultstring + num1 + " : ";
+                rekenstring = rekenstring + num1 + " / ";
+                $('#numberone').text(resultstring);
+                opPressed = true;  
+            }       
         });
 
         $('.mul').click(function(){
             dotcheck = true;
             num1 = $('#input').val();
-            if(num1 == ""){
-                alert("Voer eerst een getal in");
+            if (num1 != "" ) {
+                resultstring = resultstring + num1 + " x ";
+                rekenstring = rekenstring + num1 + " * ";
+                $('#numberone').text(resultstring);
+                opPressed = true;
             }
-            resultstring = resultstring + num1 + " x ";
-            rekenstring = rekenstring + num1 + " * ";
-            $('#numberone').text(resultstring);
-            $('#input').val("");
         });
 
         $('#calc').click(function(){
             num1 = $('#input').val();
-            resultstring = resultstring + num1 + " = ";
-            rekenstring = rekenstring + num1;
-            result = eval(rekenstring);
-            $('#numberone').text(resultstring + result);
-            $('#input').val("");
-            resultstring = "";
-            rekenstring = "";
-            endedWithCalc = true;
+            if (num1 != ""){
+                resultstring = resultstring + num1 + " = ";
+                rekenstring = rekenstring + num1;
+                result = eval(rekenstring);
+                $('#numberone').text(resultstring + result);
+                $('#input').val(result);
+                resultstring = "";
+                rekenstring = "";
+                opPressed = true;
+            }
         });
     </script>
 </body>
