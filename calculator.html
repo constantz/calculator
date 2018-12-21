@@ -57,17 +57,14 @@
     <p id="numbertwo"></p>
 </div>
 
-    <script type="text/javascript" src="script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
         var num1 = null;
-        var num1 = null;
-        var num3 = null;
-        var status = null;
         var result = null;
         var dotcheck = true;
         $('#input').val("");
-        var resultstring = "";
-        var firstOp = true;  //first time that any operator is called
+        var resultstring = "";  //string voor de uitvoer, ziet er 'leuker' uit
+        var rekenstring = "";  //rekenstring gebruiken voor het berekeken, met 'echte' operators (* ipv x bijv.)
         var endedWithCalc = false;
 
         $('.res').click(function(){
@@ -77,20 +74,18 @@
         function reset(){
             $('#input').val("");
             num1 = null;
-            num2 = null;
-            num3 = null;
+            result = null;
             $('#numberone').text("");
             dotcheck = true;
             resultstring = "";
-            result = null;
-            firstOp = true;
+            rekenstring = "";
             endedWithCalc = false;
         };
         
         $('.dot').click(function(){
             if (dotcheck){
                 $('#input').val($('input').val() + this.innerHTML);
-                dotcheck = false;
+                dotcheck = false; //je kunt maar één keer een dot invoeren
             }
         });
 
@@ -101,123 +96,62 @@
 
         $('.add').click(function(){
             dotcheck = true;
-            if (firstOp){
-                num1 = $('#input').val();
-            }    
+            num1 = $('#input').val();    
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else { if (firstOp){
-                    resultstring = resultstring + num1 + " + ";
-                } else {
-                    calculate(); 
-                    resultstring = resultstring + num2 + " + ";               
-                }
+            resultstring = resultstring + num1 + " + ";
+            rekenstring = rekenstring + num1 + " + ";
             $('#numberone').text(resultstring);
             $('#input').val("");
-            status = "plus";
-            firstOp = false;    
-            }
         });
 
         $('.sub').click(function(){
             dotcheck = true;
-            if (firstOp){
-                num1 = $('#input').val();
-            }    
+            num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else { if (firstOp){
-                    resultstring = resultstring + num1 + " - ";   
-                } else {
-                    calculate();
-                    resultstring = resultstring + num2 + " - ";   
-                } 
+            resultstring = resultstring + num1 + " - ";
+            rekenstring = rekenstring + num1 + " - ";
             $('#numberone').text(resultstring);
-            $('#input').val("");
-            status = "minus";   
-            firstOp = false;
-            }    
+            $('#input').val("");  
         });
 
         $('.div').click(function(){
             dotcheck = true;
-            if (firstOp){
-                num1 = $('#input').val();
-            }    
+            num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{ if (firstOp){
-                    resultstring = resultstring + num1 + " : ";    
-                } else {
-                    calculate();
-                    resultstring = resultstring + num2 + " : ";
-                }
+            resultstring = resultstring + num1 + " : ";
+            rekenstring = rekenstring + num1 + " / ";
             $('#numberone').text(resultstring);
-            $('#input').val("");
-            status = "deel";
-            firstOp = false;
-            }        
+            $('#input').val("");     
         });
 
         $('.mul').click(function(){
             dotcheck = true;
-            if (firstOp){
-                num1 = $('#input').val();
-            }
+            num1 = $('#input').val();
             if(num1 == ""){
                 alert("Voer eerst een getal in");
             }
-            else{ if (firstOp){
-                    resultstring = resultstring + num1 + " x ";
-                } else {
-                    calculate();
-                    resultstring = resultstring + num2 + " x ";
-                }
+            resultstring = resultstring + num1 + " x ";
+            rekenstring = rekenstring + num1 + " * ";
             $('#numberone').text(resultstring);
             $('#input').val("");
-            status = "maal";
-            firstOp = false;    
-            }
         });
 
         $('#calc').click(function(){
-            calculate();
-            $('#numberone').text(resultstring + num2 + " = " + num1);
+            num1 = $('#input').val();
+            resultstring = resultstring + num1 + " = ";
+            rekenstring = rekenstring + num1;
+            result = eval(rekenstring);
+            $('#numberone').text(resultstring + result);
             resultstring = "";
+            rekenstring = "";
             endedWithCalc = true;
         });
-        
-        
-        function calculate(){    
-            num2 = $('#input').val();
-            if (num2 == ""){
-                alert("Voer eerst het tweede getal in!");
-                }
-            else{ 
-                dotcheck = true;
-                switch(status){
-                    case "plus": result = +num1 + +num2;
-                        $('#input').val("");
-                        break;
-                    case "minus": result = +num1 - +num2;
-                        $('#input').val("");
-                        break;
-                    case "deel": result = +num1 / +num2;
-                        $('#input').val("");
-                        break;
-                    case "maal": result = +num1 * +num2;
-                        $('#input').val("");
-                        break;
-                }
-                num1 = result;
-            }
-        };
     </script>
-
-
 </body>
-
 </html>
