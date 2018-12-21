@@ -15,7 +15,7 @@
 		    margin-top: 50px;
         }
         #input{
-            width: 250px;
+            width: 275px;
             height: 50px;
             font-size: 22pt;
             border-color: gray;
@@ -37,21 +37,27 @@
     <button class="btn knop btn-outline-primary btn-lg">1</button>
     <button class="btn knop btn-outline-primary btn-lg">2</button>
     <button class="btn knop btn-outline-primary btn-lg">3</button>
-    <button class="btn add op btn-outline-secondary btn-lg">+</button></br><br/>
+    <button class="btn del btn-outline-danger btn-lg">Del</button>
+    <button class="btn res btn-outline-danger btn-lg">AC</button>
+    </br><br/>
     <button class="btn knop btn-outline-primary btn-lg">4</button>
     <button class="btn knop btn-outline-primary btn-lg">5</button>
     <button class="btn knop btn-outline-primary btn-lg">6</button>
-    <button class="btn sub op btn-outline-secondary btn-lg">-</button></br><br/>
+    <button class="btn add op btn-outline-secondary btn-lg">+</button>
+    <button class="btn sub op btn-outline-secondary btn-lg">-</button>
+    </br><br/>
     <button class="btn knop btn-outline-primary btn-lg">7</button>
     <button class="btn knop btn-outline-primary btn-lg">8</button>
     <button class="btn knop btn-outline-primary btn-lg">9</button>
-    <button class="btn div op btn-outline-secondary btn-lg">/</button></br></br>
+    <button class="btn div op btn-outline-secondary btn-lg">/</button>
+    <button class="btn mul op btn-outline-secondary btn-lg">x</button>
+    </br></br>
     <button class="btn knop btn-outline-primary btn-lg">0</button>
     <button class="btn dot btn-outline-primary btn-lg">.</button>
-    <button class="btn mul op btn-outline-secondary btn-lg">x</button>
+    <button class="btn plusmn btn-outline-primary btn-lg">&#177</button>
 
-    <button id="calc" class="btn op btn-outline-secondary btn-lg">=</button>
-    <button class="btn res btn-outline-danger btn-lg">C</button></br>
+    <button id="calc" class="btn op btn-outline-secondary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </br>
     <p></p>
     <p id="numberone"></p>
     <p id="numbertwo"></p>
@@ -82,16 +88,29 @@
             endedWithCalc = false;
         };
         
+        $('.del').click(function(){
+            $('#input').val("");
+        });
+
         $('.dot').click(function(){
             if (dotcheck){
-                $('#input').val($('input').val() + this.innerHTML);
+                $('#input').val($('#input').val() + this.innerHTML);
                 dotcheck = false; //je kunt maar één keer een dot invoeren
             }
         });
 
         $('.knop').click(function(){
             if (endedWithCalc){reset()};
-            $('#input').val($('input').val() + this.innerHTML);
+            $('#input').val($('#input').val() + this.innerHTML);
+        });
+
+        $('.plusmn').click(function(){
+            if ($('#input').val().indexOf('-') > -1) {
+                $('#input').val($('#input').val().replace('-', ''));
+            }
+            else {
+                $('#input').val("-" + $('#input').val());
+            };
         });
 
         $('.add').click(function(){
@@ -148,6 +167,7 @@
             rekenstring = rekenstring + num1;
             result = eval(rekenstring);
             $('#numberone').text(resultstring + result);
+            $('#input').val("");
             resultstring = "";
             rekenstring = "";
             endedWithCalc = true;
